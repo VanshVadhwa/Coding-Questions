@@ -4,6 +4,13 @@ using namespace std;
 class Solution {
 public:
     int bitwiseComplement(int n) {
+        // int mask = 1;
+
+        // while(mask < n) {
+        //     mask = (mask<<1) + 1;
+        // } 
+
+        // return mask^n;
         int ans = 0, rem, mul = 1;
 
         if (n == 0) {
