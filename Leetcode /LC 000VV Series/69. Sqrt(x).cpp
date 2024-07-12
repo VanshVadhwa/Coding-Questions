@@ -4,34 +4,38 @@ using namespace std;
 class Solution {
 public:
     int mySqrt(int n) {
-        long long int s=0;
-        long long int e=n;
-        long long int mid=s + (e-s)/2;
-        int ans=-1;
+        if (n < 2) {
+            return n;
+        }
+        int start = 0;
+        int end = n;
+        int ans = 0;
 
-        while(s<=e) {
-            long long int square=mid*mid;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
 
-            if(square==n) {
+            if (mid == n / mid) {
                 return mid;
-            }
-            else if(square < n) {
+            } else if (mid < n / mid) {
                 ans = mid;
-                s=mid+1;
+                start = mid + 1;
+            } else {
+                end = mid - 1;
             }
-            else {
-                e=mid-1;
-            }
-            mid=s + (e-s)/2;
         }
         return ans;
     }
 };
 
 int main() {
-    Solution obj;
-    int n = 16; 
-    cout << "Square root of " << n << " is: " << obj.mySqrt(n) << endl;
+    Solution solution;
     
+    int number;
+    cout << "Enter a number: ";
+    cin >> number;
+
+    int result = solution.mySqrt(number);
+    cout << "The square root of " << number << " is approximately " << result << endl;
+
     return 0;
 }
