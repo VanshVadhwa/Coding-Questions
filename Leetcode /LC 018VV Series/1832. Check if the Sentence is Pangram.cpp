@@ -1,10 +1,29 @@
+// class Solution {
+// public:
+//     bool checkIfPangram(string sentence) {
+//         unordered_map<char, int> map;
+
+//         for(char c : sentence) map[c]++;
+
+//         return map.size()==26;
+//     }
+// };
+
 class Solution {
 public:
     bool checkIfPangram(string sentence) {
-        unordered_map<char, int> map;
+        vector<bool> alpha(26,0);
 
-        for(char c : sentence) map[c]++;
+        int n = sentence.size();
 
-        return map.size()==26;
+        for(int i=0;i<n;i++)
+        {
+            alpha[sentence[i]-'a'] = 1;
+        }
+        for(int i=0;i<26;i++)
+        {
+            if(alpha[i]==0) return false;
+        }
+        return true;
     }
 };
