@@ -3,22 +3,16 @@ public:
     int longestPalindrome(string s) {
         int n = s.length();
 
-        vector<int> alpha(100,0);
+        vector<int> alpha(128,0);
 
         for(char c : s)
         {
-            if(isupper(c)) {
-                alpha[c-'A']++;
-            }
-            else {
-                alpha[c-'a']++;
-            }
+            alpha[c]++;
         }
 
         int count = 0, oddCount = 0;
-        bool flag = false;
 
-        for(int i=0;i<100;i++)
+        for(int i=0;i<128;i++)
         {
             if(alpha[i]%2==0) {
                 count+=alpha[i];
