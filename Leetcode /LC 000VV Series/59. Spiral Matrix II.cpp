@@ -1,47 +1,47 @@
 class Solution {
 public:
     vector<vector<int>> generateMatrix(int n) {
-        vector<vector<int>> matrix(n, vector<int>(n,n*n));
+        vector<vector<int>> matrix(n, vector<int>(n,0));
 
-        int count = 1;
         int total = n*n;
+        int count = 1;
 
-        int top =0;
-        int left = 0;
-        int right = n-1;
-        int bottom = n-1;
+        int left = 0, right = n-1, top = 0, bottom = n-1;
 
-        while(count < total && left<=right && top<=bottom)
+        while(count <= total)
         {
-            for(int j=left;j<=right && count < total;j++)
+            //top
+            for(int i=left;i<=right && count <= total;i++)
             {
-                matrix[top][j] = count;
+                matrix[top][i] = count;
                 count++;
             }
             top++;
 
-            for(int i=top;i<=bottom && count < total;i++)
+            //right
+            for(int i=top;i<=bottom && count <= total;i++)
             {
                 matrix[i][right] = count;
                 count++;
             }
             right--;
 
-            for(int j=right;j>=left && count < total;j--)
+            //bottom
+            for(int i=right;i>=left && count <= total;i--)
             {
-                matrix[bottom][j] = count;
+                matrix[bottom][i] = count;
                 count++;
             }
             bottom--;
 
-            for(int i=bottom;i>=top && count < total;i--)
+            //left
+            for(int i=bottom;i>=top && count <= total;i--)
             {
                 matrix[i][left] = count;
                 count++;
             }
             left++;
-        }   
-
+        }
         return matrix;
     }
 };
