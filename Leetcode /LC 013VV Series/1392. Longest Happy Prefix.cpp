@@ -3,29 +3,25 @@ public:
     string longestPrefix(string s) {
         int n = s.length();
         vector<int> lps(n,0);
-        int pre = 0, suf = 1;
-
-        while(suf < n)
+        int pref = 0;
+        int suff = 1;
+        while(suff < n)
         {
-            if(s[suf]==s[pre])
-            {
-                lps[suf] = pre+1;
-                pre++;
-                suf++;
+            if(s[suff]==s[pref]) {
+                lps[suff] = pref+1;
+                suff++;
+                pref++;
             }
-            else
-            {
-                if(pre==0)
-                {
-                    lps[suf] = 0;
-                    suf++;
+            else {
+                if(pref==0) {
+                    lps[suff] = 0;
+                    suff++;
                 }
-                else 
-                {
-                    pre = lps[pre-1];
+                else {
+                    pref = lps[pref-1];
                 }
             }
         }
-        return s.substr(0, lps[n-1]);
+        return s.substr(0,lps[n-1]);
     }
 };
