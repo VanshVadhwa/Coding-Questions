@@ -14,21 +14,20 @@ public:
         if(!head || !head->next) {
             return head;
         }
-
-        ListNode* temp = head;
-
-        while(temp && temp->next)
-        {
-            if(temp->val == temp->next->val) {
-                ListNode* duplicate = temp->next;
-                temp->next = duplicate->next;
-                delete duplicate;
+        
+        ListNode* curr = head;
+        
+        while(curr && curr->next) {
+            if(curr->val == curr->next->val) {
+                ListNode* temp = curr->next;
+                curr->next = curr->next->next;
+                delete temp;
             }
             else {
-                temp = temp->next;
+                curr = curr->next;
             }
         }
-
+        
         return head;
     }
 };
