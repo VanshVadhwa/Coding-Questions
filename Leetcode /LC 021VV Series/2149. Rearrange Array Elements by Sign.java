@@ -1,32 +1,26 @@
 class Solution {
-    public int[] rearrangeArray(int[] nums) {
-        int n = nums.length;
-
-        int[] pos = new int[n/2];
-        int[] neg = new int[n/2];
-
-        int posIndex = 0;
-        int negIndex = 0;
-
-        for(int i=0;i<n;i++)
-        {
-            if(nums[i]>0) {
-                pos[posIndex] = nums[i];
-                posIndex++;
+private:
+    bool check(string s, string pre) {
+        int n1 = s.length(), n2 = pre.length();
+        int index1 = 0, index2 = 0;
+        while(index1 < n1 && index2 < n2) {
+            if(s[index1]!=pre[index2]) {
+                return false;
             }
-            
-            else {
-                neg[negIndex] = nums[i];
-                negIndex++;
-            }
+            index1++;
+            index2++;
         }
-
-        for(int i=0;i<n/2;i++)
-        {
-            nums[i*2] = pos[i];
-            nums[i*2+1] = neg[i];
-        }
-
-        return nums;
+        return index2==n2;
     }
-}
+public:
+    int prefixCount(vector<string>& words, string pref) {
+        int n = words.size();
+        int ans = 0;
+
+        for(int i=0;i<n;i++) {
+            if(check(words[i],pref)) ans++;
+        }
+
+        return ans;
+    }
+};
