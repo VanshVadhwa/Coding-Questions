@@ -19,13 +19,8 @@ class Solution {
                 ans = max(ans,arr[left]*(right-left));
                 left++;
             }
-            else if(arr[left] > arr[right]) {
-                ans = max(ans,arr[right]*(right-left));
-                right--;
-            }
             else {
-                ans = max(ans,arr[left]*(right-left));
-                left++;
+                ans = max(ans,arr[right]*(right-left));
                 right--;
             }
         }
