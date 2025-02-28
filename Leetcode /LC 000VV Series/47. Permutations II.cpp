@@ -1,28 +1,27 @@
 class Solution {
 private:
-    void permute(vector<int>& arr, int n, vector<vector<int>>& ans, int index)
+    void per(vector<int>& nums, int index, vector<vector<int>>& ans)
     {
-        //base case
-        if(index==n) {
-            ans.push_back(arr);
+        if(index==nums.size()) {
+            ans.push_back(nums);
             return;
         }
 
-        vector<bool> use(21,0);
-        for(int i=index;i<n;i++) {
-            if(use[arr[i]+10]==0) {
-                swap(arr[i],arr[index]);
-                permute(arr,n,ans,index+1);
-                swap(arr[i],arr[index]);
-                use[arr[i]+10]=1;
-            }
+        unordered_set<int> seen;
+        for(int i=index;i<nums.size();i++) {
+            if(seen.find(nums[i]) != seen.end()) continue;
+            seen.insert(nums[i]);
+
+            swap(nums[i],nums[index]);
+            per(nums,index+1,ans);
+            swap(nums[i],nums[index]);
         }
     }
 public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
-        int n = nums.size();
+        // sort(nums.begin(),nums.end());
         vector<vector<int>> ans;
-        permute(nums,n,ans,0);
+        per(nums,0,ans);
         return ans;
     }
 };
