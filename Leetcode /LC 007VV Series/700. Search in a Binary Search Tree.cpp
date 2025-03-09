@@ -11,24 +11,25 @@
  */
 class Solution {
 private:
-    void search(TreeNode* root, TreeNode*& ans, int val) {
+    void find(TreeNode* root, TreeNode*& ans, int val) {
         if(!root) return;
+
         if(root->val == val) {
             ans = root;
             return;
-        } 
+        }
 
-        if(val < root->val) {
-            search(root->left,ans,val);
+        else if(root->val < val) {
+            find(root->right,ans,val);
         }
         else {
-            search(root->right,ans,val);
+            find(root->left,ans,val);
         }
     }
 public:
     TreeNode* searchBST(TreeNode* root, int val) {
         TreeNode* ans = nullptr;
-        search(root,ans,val);
+        find(root, ans, val);
         return ans;
     }
 };
