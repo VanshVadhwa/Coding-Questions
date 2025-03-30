@@ -1,34 +1,29 @@
 class Solution {
 public:
-    string shortestPalindrome(string s) {
-        string rev = s;
-        reverse(rev.begin(), rev.end());
-        string ans = s + '$' + rev;
+    string shortestPalindrome(string str) {
+        string rev = str;
+        reverse(rev.begin(),rev.end());
+        string s = str + '$' + rev;
 
-        int n = ans.length();
-
+        int n = s.length();
         vector<int> lps(n,0);
-        int pref = 0, suff = 1;
 
-        while(suff < n)
-        {
-            if(ans[pref] == ans[suff])
-            {
-                lps[suff] = pref+1;
-                suff++;
-                pref++; 
+        int pre = 0, suff = 1;
+        while(suff < n) {
+            if(s[suff] == s[pre]) {
+                lps[suff++] = pre+1;
+                pre++;
             }
-            else
-            {
-                if(pref == 0)
-                suff++;
-
-                else 
-                {
-                    pref = lps[pref-1];
+            else {
+                if(pre==0) {
+                    suff++;
+                }
+                else {
+                    pre = lps[pre-1];
                 }
             }
         }
-        return rev.substr(0, s.size()-lps.back()) + s;
+
+        return rev.substr(0,str.size()-lps.back()) + str;
     }
 };
