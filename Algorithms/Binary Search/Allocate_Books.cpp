@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int bookAllocate(int arr[], int n, int m) 
+int bookAllocate(vector<int>& arr, int n, int m) 
 {
     int start = 0, end = 0, ans = 0;
 
