@@ -1,26 +1,30 @@
 class Solution {
+private:
+    bool isValidWindow(int size, vector<int>& nums, int target) {
+        int n = nums.size(), sum = 0, left = 0, ans = 0;
+        for(int right=0;right<n;right++) {
+            sum += nums[right];
+            if(right-left+1==size) {
+                if(sum >= target) ans = sum;
+                sum -= nums[left++];
+            }
+        }
+        return ans >= target ? true : false;
+    }
 public:
     int minSubArrayLen(int target, vector<int>& nums) {
         int n = nums.size();
-        int left = 0;
-        int right = 0;
-        int sum = 0;
-        int elements = 0;
-        int ans = 100001;
-
-        while(right < n)
-        {
-            sum += nums[right];
-            elements += 1;
-            while(sum >= target)
-            {
-                ans = min(ans,elements);
-                sum -= nums[left];
-                elements -= 1;
-                left++;
+        int start = 1, end = n, ans = 0;
+        while(start <= end) {
+            int mid = start + (end-start)/2;
+            if(isValidWindow(mid,nums,target)) {
+                ans = mid;
+                end = mid-1;
             }
-            right++;
+            else {
+                start = mid+1;
+            }
         }
-        return ans == 100001 ? 0 : ans;
+        return ans;
     }
 };
