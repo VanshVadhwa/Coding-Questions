@@ -2,15 +2,14 @@ class Solution {
 public:
     bool canJump(vector<int>& nums) {
         int n = nums.size();
-        int gas = 0;
-        for(int i=0;i<n-1;i++) {
-            if(gas <= nums[i]) {
-                gas = nums[i]-1;
-            } 
-            else {
-                gas--;
+        int curr = nums[0];
+
+        for(int i=1;i<n;i++) {
+            curr -= 1;
+            if(curr < 0) return false;
+            if(curr < nums[i]) {
+                curr = nums[i];
             }
-            if(gas < 0) return false;
         }
 
         return true;
