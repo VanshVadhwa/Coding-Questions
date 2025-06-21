@@ -1,43 +1,26 @@
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        vector<int> ans;
+        int row = matrix.size(), col = matrix[0].size();
+        vector<int> ans(row*col,0);
+        int left = 0, right = col-1, top = 0, bottom = row-1;
+        int index = 0;
 
-        int row = matrix.size();
-        int col = matrix[0].size();
-
-        int top = 0;
-        int right = col-1;
-        int bottom = row-1;
-        int left = 0; 
-
-        while(left <= right && top<=bottom)
-        {
-            //printing top
-            for(int j=left;j<=right && top<=bottom;j++)
-            { 
-                ans.push_back(matrix[top][j]);
+        while(left <= right && top <= bottom) {
+            for(int i=left;i<=right;i++) {
+                ans[index++] = matrix[top][i];
             }
             top++;
-
-            //printing right
-            for(int i=top;i<=bottom && left <= right;i++)
-            {
-                ans.push_back(matrix[i][right]);
+            for(int i=top;i<=bottom;i++) {
+                ans[index++] = matrix[i][right];
             }
             right--;
-
-            //printing bottom
-            for(int j=right;j>=left && top<=bottom;j--)
-            {
-                ans.push_back(matrix[bottom][j]);
+            for(int i=right;i>=left && top<=bottom;i--) {
+                ans[index++] = matrix[bottom][i];
             }
             bottom--;
-
-            // printing left
-            for(int i=bottom;i>=top && left <= right;i--)
-            {
-                ans.push_back(matrix[i][left]);
+            for(int i=bottom;i>=top && left<=right;i--) {
+                ans[index++] = matrix[i][left];
             }
             left++;
         }
@@ -45,58 +28,3 @@ public:
         return ans;
     }
 };
-
-// class Solution {
-// public:
-//     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-//         vector<int> ans;
-
-//         int row = matrix.size();
-//         int col = matrix[0].size();
-
-//         int count = 0;
-//         int totalCount = row*col;
-
-//         int top = 0;
-//         int right = col-1;
-//         int bottom = row-1;
-//         int left = 0; 
-
-//         while(count < totalCount)
-//         {
-//             //printing top
-//             for(int j=left;j<=right && count < totalCount;j++)
-//             { 
-//                 ans.push_back(matrix[top][j]);
-//                 count++;
-//             }
-//             top++;
-
-//             //printing right
-//             for(int i=top;i<=bottom && count < totalCount;i++)
-//             {
-//                 ans.push_back(matrix[i][right]);
-//                 count++;
-//             }
-//             right--;
-
-//             //printing bottom
-//             for(int j=right;j>=left && count < totalCount;j--)
-//             {
-//                 ans.push_back(matrix[bottom][j]);
-//                 count++;
-//             }
-//             bottom--;
-
-//             // printing left
-//             for(int i=bottom;i>=top && count < totalCount;i--)
-//             {
-//                 ans.push_back(matrix[i][left]);
-//                 count++;
-//             }
-//             left++;
-//         }
-
-//         return ans;
-//     }
-// };
