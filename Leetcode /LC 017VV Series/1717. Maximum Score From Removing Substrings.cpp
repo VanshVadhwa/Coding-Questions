@@ -1,52 +1,39 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-
-using namespace std;
-
 class Solution {
 private:
-    int remove(string& s, char a, char b, int gain) {
-        vector<char> v;
-        int count = 0;
-
-        for (char c : s) {
-            if (c == b && !v.empty() && v.back() == a) {
-                v.pop_back();
-                count += gain;
-            } 
-            else {
-                v.push_back(c);
+    int solve(stack<char>& st, string& s, int maxi, string target) {
+        int ans = 0;
+        for(char c : s) {
+            if(!st.empty() && st.top() == target[0] && c==target[1]) {
+                ans += maxi;
+                st.pop();
             }
+            else st.push(c);
         }
-        s = string(v.begin(), v.end());
-        return count;
-    } 
+        return ans;
+    }
 public:
     int maximumGain(string s, int x, int y) {
-        int ans = 0;
+        int maxi = max(x,y);
+        stack<char> st;
+        int ans = (maxi==x) ? solve(st,s,maxi,"ab") : solve(st,s,maxi,"ba");
 
-        if(x > y) {
-            ans += remove(s,'a','b',x);
-            ans += remove(s,'b','a',y);
+        string str = "";
+        while(!st.empty()) {
+            str += st.top();
+            st.pop();
         }
-        else {
-            ans += remove(s,'b','a',y);
-            ans += remove(s,'a','b',x);
+
+        reverse(str.begin(),str.end());
+
+        for(char c : str) {
+            if(!st.empty() && st.top() != c && (st.top()=='a' || st.top()=='b') && (c=='a' || c=='b')) {
+                if(st.top()=='b' && c=='a') ans += y;
+                else ans += x;
+                st.pop();
+            }
+            else st.push(c);
         }
 
         return ans;
     }
 };
-
-int main() {
-    Solution solution;
-    string s = "aabbaaxybbaabb";
-    int x = 5, y = 4;
-
-    int result = solution.maximumGain(s, x, y);
-    cout << "Maximum Gain: " << result << endl;
-
-    return 0;
-}
